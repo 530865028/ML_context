@@ -6,8 +6,8 @@ net.d_h = net.v' * net.d_oi ; % 隐含层输出的误差 [200, 32]
 net.d_hi = net.d_h .* net.h_o .* (1 - net.h_o); % 隐含层的输入的误差 [200, 32]
 %net.d_hi = net.d_h .* (net.h_o > 0); % 使用ReLU作为激活函数
 
-net.d_w = net.d_hi * net.x'; % 参数w的误差[200, 784]
-net.d_v = net.d_oi * net.h_o'; % 参数v的误差 [10, 200]
+net.d_w = net.d_hi * net.x'/size(net.d_hi, 1); % 参数w的误差[200, 784]
+net.d_v = net.d_oi * net.h_o'/size(net.oi, 1); % 参数v的误差 [10, 200]
 net.d_wb = sum(net.d_hi, 2)/size(net.d_hi, 1); % 偏置wb的误差[200, 1]
-net.d_vb = sum(net.d_oi, 2)/size(net.d_hi, 1); % 偏置vb的误差 [10, 1]
+net.d_vb = sum(net.d_oi, 2)/size(net.d_oi, 1); % 偏置vb的误差 [10, 1]
 end
