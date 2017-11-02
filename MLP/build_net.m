@@ -11,6 +11,9 @@ net.w = rand([net.num_hidden, net.num_input]) - 0.5;
 net.v = rand([net.num_output, net.num_hidden]) - 0.5;
 net.wb = zeros(net.num_hidden,1);
 net.vb = zeros(net.num_output,1);
-net.mw = zeros(size(net.w));
-net.mv = zeros(size(net.v));
+
+net.d_sw = zeros(size(net.w));
+net.d_sv = zeros(size(net.v));
+net.d_swb = zeros(size(net.wb));
+net.d_svb = zeros(size(net.vb));
 end
