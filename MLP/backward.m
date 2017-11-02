@@ -1,13 +1,13 @@
 function net = backward(net)
 
-net.d_o = net.loss_temp; % ×îÖÕÎó²î [10, 32]
-net.d_oi = net.d_o .* net.o_o .* (1 - net.o_o); % Êä³ö²ãµÄÊäÈëµÄÎó²î [10, 32]
-net.d_h = net.v' * net.d_oi ; % Òşº¬²ãÊä³öµÄÎó²î [200, 32]
-net.d_hi = net.d_h .* net.h_o .* (1 - net.h_o); % Òşº¬²ãµÄÊäÈëµÄÎó²î [200, 32]
-%net.d_hi = net.d_h .* (net.h_o > 0); % Ê¹ÓÃReLU×÷Îª¼¤»îº¯Êı
+net.d_o = net.loss_temp; % æœ€ç»ˆè¯¯å·® [10, 32]
+net.d_oi = net.d_o .* net.o_o .* (1 - net.o_o); % è¾“å‡ºå±‚çš„è¾“å…¥çš„è¯¯å·® [10, 32]
+net.d_h = net.v' * net.d_oi ; % éšå«å±‚è¾“å‡ºçš„è¯¯å·® [200, 32]
+net.d_hi = net.d_h .* net.h_o .* (1 - net.h_o); % éšå«å±‚çš„è¾“å…¥çš„è¯¯å·® [200, 32]
+%net.d_hi = net.d_h .* (net.h_o > 0); % ä½¿ç”¨ReLUä½œä¸ºæ¿€æ´»å‡½æ•°
 
-net.d_w = net.d_hi * net.x'; % ²ÎÊıwµÄÎó²î[200, 784]
-net.d_v = net.d_oi * net.h_o'; % ²ÎÊıvµÄÎó²î [10, 200]
-net.d_wb = net.d_hi; % Æ«ÖÃwbµÄÎó²î[200, 32]
-net.d_vb = net.d_oi; % Æ«ÖÃvbµÄÎó²î [10, 32]
+net.d_w = net.d_hi * net.x'; % å‚æ•°wçš„è¯¯å·®[200, 784]
+net.d_v = net.d_oi * net.h_o'; % å‚æ•°vçš„è¯¯å·® [10, 200]
+net.d_wb = sum(net.d_hi, 2)/size(net.d_hi, 1); % åç½®wbçš„è¯¯å·®[200, 1]
+net.d_vb = sum(net.d_oi, 2)/size(net.d_hi, 1); % åç½®vbçš„è¯¯å·® [10, 1]
 end
